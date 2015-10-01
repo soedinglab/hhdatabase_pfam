@@ -31,12 +31,8 @@ input_basename=$(basename ${src_input})
 cp ${src_input}.ff* ${MYLOCAL}
 input=${MYLOCAL}/${input_basename}
 
-echo "get huge a3m"
-ffindex_apply_mpi ${input}.ff{data,index} -- python3.4 ${HHLIB}/scripts/is_huge_a3m.py stdin 50 > ${MYLOCAL}/huge.dat
-echo "cat processing"
-cat ${MYLOCAL}/huge.dat | grep "0$" | cut -f1,2,3 > ${MYLOCAL}/is_huge.ffindex
 echo "calculate hhm"
-mpirun -np 1 ffindex_apply_mpi ${input}.ffdata ${MYLOCAL}/is_huge.ffindex -i ${MYLOCAL}/pfam_hhm.ffindex -d ${MYLOCAL}/pfam_hhm.ffdata -- hhmake -i stdin -o stdout
+mpirun -np 1 ffindex_apply_mpi ${input}.ffdata ${input}.ffindex -i ${MYLOCAL}/pfam_hhm.ffindex -d ${MYLOCAL}/pfam_hhm.ffdata -- hhmake -i stdin -o stdout -v 0
 
 echo "optimization"
 ffindex_build -as ${MYLOCAL}/pfam_hhm.ff{data,index}
