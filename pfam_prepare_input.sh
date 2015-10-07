@@ -17,15 +17,15 @@ source /etc/profile
 source $HOME/.zshrc
 
 module use-append $HOME/modulefiles/
-module load gcc/4.9.1
-module load intel/compiler/64/14.0/2013_sp1.3.174
+module load intel/compiler/64/15.0/2015.3.187
+module load openmpi/intel/64/1.8.5
 
 rm -f ${pfam_build_dir}/Pfam-A.seed
 gunzip ${pfam_build_dir}/Pfam-A.seed.gz
 
 mkdir -p /local/${USER}
 tmp_dir=$(mktemp -d --tmpdir=/local/${USER})
-python2.6 ./deconcatenate_seed.py -i ${pfam_build_dir}/Pfam-A.seed -o ${tmp_dir}
+python2 ./deconcatenate_seed.py -i ${pfam_build_dir}/Pfam-A.seed -o ${tmp_dir}
 
 for f in ${tmp_dir}/*.sto
 do

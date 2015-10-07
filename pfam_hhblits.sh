@@ -18,8 +18,8 @@ source /etc/profile
 source $HOME/.zshrc
 
 module use-append $HOME/modulefiles/
-module load gcc/4.9.1
-module load intel/compiler/64/14.0/2013_sp1.3.174
+module load intel/compiler/64/15.0/2015.3.187
+module load openmpi/intel/64/1.8.5
 
 mkdir -p /local/${USER}
 MYLOCAL=$(mktemp -d --tmpdir=/local/${USER})
