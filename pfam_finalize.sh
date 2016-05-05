@@ -27,7 +27,7 @@ rm -f pfamA_*.tgz
 tar_name=pfamA_${pfam_version}.tgz
 
 rm -f pfam.cs219.sizes pfam_hhm_db.index pfam_a3m_db.index
-nr_proteins=$(wc -l pfam_cs219.ffindex)
+nr_proteins=$(wc -l pfam_cs219.ffindex | cut -f1 -d" ")
 nr_aa=$(cut -f3 pfam_cs219.ffindex | awk '{x+=$0}END{print x}')
 echo "${nr_proteins} ${nr_aa}" > pfam.cs219.sizes
 
