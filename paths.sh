@@ -1,5 +1,5 @@
-#!/bin/zsh
+#!/bin/bash
 
-export root_dir="/usr/users/mmeier/hhpred_pfam_update"
-export pfam_build_dir="/cbscratch/mmeier/hhpred_pfam_build"
-export uniprot="/cbscratch/mmeier/databases/uniprot20_2015_06/uniprot20_2015_06"
+export root_dir=/usr/users/jsoedin/git/hhdatabase_pfam
+export pfam_build_dir=/cbscratch/${USER}/hhpred_pfam_build
+export uniprot=/cbscratch/${USER}/databases/uniprot20_2016_02/uniprot20_2016_02

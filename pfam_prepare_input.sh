@@ -1,10 +1,10 @@
-#!/bin/zsh
+#!/bin/bash
 
 #BSUB -q mpi
 #BSUB -W 47:50
 #BSUB -n 1
 #BSUB -a openmp
-#BSUB -o /usr/users/mmeier/jobs/pfam_a3m_prep.log
+#BSUB -o /usr/users/jsoedin/jobs/pfam_a3m_prep.log
 #BSUB -R "span[hosts=1]"
 #BSUB -R np16
 #BSUB -R haswell
@@ -12,13 +12,10 @@
 #BSUB -J pfam_a3m_prep
 #BSUB -m hh
 
-source paths.sh
 source /etc/profile
-source $HOME/.zshrc
+source $HOME/.bashrc
 
-module use-append $HOME/modulefiles/
-module load intel/compiler/64/15.0/2015.3.187
-module load openmpi/intel/64/1.8.5
+source paths.sh
 
 rm -f ${pfam_build_dir}/Pfam-A.seed
 gunzip ${pfam_build_dir}/Pfam-A.seed.gz

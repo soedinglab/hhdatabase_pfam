@@ -1,10 +1,10 @@
-#!/bin/zsh
+#!/bin/bash
 
 #BSUB -q mpi
 #BSUB -W 47:50
 #BSUB -n 1
 #BSUB -a openmp
-#BSUB -o /usr/users/mmeier/jobs/pfam_finalize.log
+#BSUB -o /usr/users/jsoedin/jobs/pfam_finalize.log
 #BSUB -R "span[hosts=1]"
 #BSUB -R np16
 #BSUB -R haswell
@@ -13,9 +13,11 @@
 #BSUB -m hh
 #BSUB -w "done(pfam_hhmake) && done(pfam_cstranslate)"
 
-source paths.sh
 source /etc/profile
-source $HOME/.zshrc
+source $HOME/.bashrc
+
+source paths.sh
+
 
 pfam_version=$(grep "  RELEASE" ${pfam_build_dir}/old_relnotes.txt | sed "s/RELEASE//" | sed "s/ //g")
 

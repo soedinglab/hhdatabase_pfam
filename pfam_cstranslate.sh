@@ -1,10 +1,10 @@
-#!/bin/zsh
+#!/bin/bash
 
 #BSUB -q mpi
 #BSUB -W 47:50
 #BSUB -n 16
 #BSUB -a openmp
-#BSUB -o /usr/users/mmeier/jobs/pfam_cstranslate.log
+#BSUB -o /usr/users/jsoedin/jobs/pfam_cstranslate.log
 #BSUB -R "span[hosts=1]"
 #BSUB -R np16
 #BSUB -R haswell
@@ -13,13 +13,10 @@
 #BSUB -m hh
 #BSUB -w "done(pfam_hhblits)"
 
-source paths.sh
 source /etc/profile
-source $HOME/.zshrc
+source $HOME/.bashrc
 
-module use-append $HOME/modulefiles/
-module load intel/compiler/64/15.0/2015.3.187
-module load openmpi/intel/64/1.8.5
+source paths.sh
 
 mkdir -p /local/${USER}
 MYLOCAL=$(mktemp -d --tmpdir=/local/${USER})
