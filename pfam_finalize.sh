@@ -11,7 +11,7 @@
 #BSUB -R cbscratch
 #BSUB -J pfam_finalize
 #BSUB -m hh
-#BSUB -w "done(pfam_hhmake) && done(pfam_cstranslate)"
+#BSUB -w "done(pfam_hhmake) && done(pfam_cstranslate) && done(pfam_cstranslate_old)"
 
 source /etc/profile
 source $HOME/.bashrc
@@ -44,9 +44,10 @@ md5sum pfam_hhm.ff* pfam_cs219.ff* pfam_a3m.ff* pfam_a3m_db.index pfam_hhm_db.in
 tar -zcvf pfamA_${pfam_version}.tgz pfam_hhm_db* pfam_hhm.ff* pfam_cs219.ff* pfam_a3m_db* pfam_a3m.ff* pfam.cs219 pfam.cs219.sizes md5sum
 chmod og+r ${pfam_build_dir}/${tar_name}
 
-ssh compbiol@login.gwdg.de "rm -f /usr/users/compbiol/www/data/hhsuite/databases/hhsuite_dbs/pfamA*.tgz"
+ssh compbiol@login.gwdg.de "mv -f /usr/users/compbiol/www/data/hhsuite/databases/hhsuite_dbs/pfamA*.tgz /usr/users/a/soeding"
 scp ${pfam_build_dir}/${tar_name} compbiol@login.gwdg.de:/usr/users/compbiol
 ssh compbiol@login.gwdg.de "mv /usr/users/compbiol/${tar_name} /usr/users/compbiol/www/data/hhsuite/databases/hhsuite_dbs"
+ssh compbiol@login.gwdg.de "ln -fs /usr/users/compbiol/www/data/hhsuite/databases/hhsuite_dbs/${tar_name} /usr/users/compbiol/current_pfamA.tgz"
 
 rm -f ${pfam_build_dir}/${tar_name}
 rm -f ${pfam_lock_file}

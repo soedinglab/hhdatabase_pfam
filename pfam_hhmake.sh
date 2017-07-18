@@ -2,7 +2,7 @@
 
 #BSUB -q mpi
 #BSUB -W 47:50
-#BSUB -n 1
+#BSUB -n 16
 #BSUB -a openmp
 #BSUB -o /usr/users/jsoedin/jobs/pfam_hhmake.log
 #BSUB -R "span[hosts=1]"
@@ -11,7 +11,7 @@
 #BSUB -R cbscratch
 #BSUB -J pfam_hhmake
 #BSUB -m hh
-#BSUB -w "done(pfam_hhblits)"
+#BSUB -w "done(pfam_addss)"
 
 source /etc/profile
 source $HOME/.bashrc
@@ -27,7 +27,7 @@ cp ${src_input}.ff* ${MYLOCAL}
 input=${MYLOCAL}/${input_basename}
 
 echo "calculate hhm"
-mpirun -np 1 ffindex_apply_mpi ${input}.ffdata ${input}.ffindex -i ${MYLOCAL}/pfam_hhm.ffindex -d ${MYLOCAL}/pfam_hhm.ffdata -- hhmake -i stdin -o stdout -v 0
+mpirun -np 16 ffindex_apply_mpi ${input}.ffdata ${input}.ffindex -i ${MYLOCAL}/pfam_hhm.ffindex -d ${MYLOCAL}/pfam_hhm.ffdata -- hhmake -i stdin -o stdout -v 0
 
 echo "optimization"
 ffindex_build -as ${MYLOCAL}/pfam_hhm.ff{data,index}

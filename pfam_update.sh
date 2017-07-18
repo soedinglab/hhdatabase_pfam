@@ -25,8 +25,8 @@ bsub < pfam_prepare_input.sh
 
 bsub < pfam_hhblits.sh
 
+bsub < pfam_addss.sh
 bsub < pfam_cstranslate.sh
-
 bsub < pfam_cstranslate_old.sh
 
 bsub < pfam_hhmake.sh

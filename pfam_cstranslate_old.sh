@@ -9,7 +9,7 @@
 #BSUB -R np16
 #BSUB -R haswell
 #BSUB -R cbscratch
-#BSUB -J jsoedin_cstranslate_old
+#BSUB -J pfam_cstranslate_old
 #BSUB -m hh
 #BSUB -w "done(pfam_hhblits)"
 
@@ -21,7 +21,7 @@ source paths.sh
 mkdir -p /local/${USER}
 MYLOCAL=$(mktemp -d --tmpdir=/local/${USER})
 
-src_input=${pfam_build_dir}/pfam_a3m
+src_input=${pfam_build_dir}/pfam_a3m_without_ss
 input_basename=$(basename ${src_input})
 cp ${src_input}.ff* ${MYLOCAL}
 input=${MYLOCAL}/${input_basename}
