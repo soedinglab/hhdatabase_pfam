@@ -20,13 +20,7 @@ source paths.sh
 
 mkdir -p /local/${USER}
 MYLOCAL=$(mktemp -d --tmpdir=/local/${USER})
-
-src_input=${pfam_build_dir}/pfam_a3m_without_ss
-input_basename=$(basename ${src_input})
-cp ${src_input}.ff* ${MYLOCAL}
-input=${MYLOCAL}/${input_basename}
-
-cstranslate -A ${HHLIB}/data/cs219.lib -D ${HHLIB}/data/context_data.lib -x 0.3 -c 4 -i ${input} -o ${MYLOCAL}/pfam_cs219 -I a3m -b --ffindex
+OMP_NUM_THREADS=$(nproc --all) cstranslate -b -x 0.3 -c 4 -i ${pfam_build_dir}/pfam_a3m_without_ss -o ${MYLOCAL}/pfam_cs219 -I a3m --ffindex
 
 ffindex_build -as ${MYLOCAL}/pfam_cs219.ff{data,index}
 ffindex_build -as ${MYLOCAL}/pfam_cs219.opt.ff{data,index} -d ${MYLOCAL}/pfam_cs219.ffdata -i ${MYLOCAL}/pfam_cs219.ffindex

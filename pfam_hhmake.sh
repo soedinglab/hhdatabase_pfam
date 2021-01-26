@@ -15,7 +15,6 @@
 
 source /etc/profile
 source $HOME/.bashrc
-
 source paths.sh
 
 mkdir -p /local/${USER}
@@ -26,7 +25,6 @@ input_basename=$(basename ${src_input})
 cp ${src_input}.ff* ${MYLOCAL}
 input=${MYLOCAL}/${input_basename}
 
-echo "calculate hhm"
 mpirun -np 16 ffindex_apply_mpi ${input}.ffdata ${input}.ffindex -i ${MYLOCAL}/pfam_hhm.ffindex -d ${MYLOCAL}/pfam_hhm.ffdata -- hhmake -i stdin -o stdout -v 0
 
 echo "optimization"

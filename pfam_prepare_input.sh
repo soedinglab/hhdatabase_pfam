@@ -22,7 +22,7 @@ gunzip ${pfam_build_dir}/Pfam-A.seed.gz
 
 mkdir -p /local/${USER}
 tmp_dir=$(mktemp -d --tmpdir=/local/${USER})
-python2 ./deconcatenate_seed.py -i ${pfam_build_dir}/Pfam-A.seed -o ${tmp_dir}
+python2 ${root_dir}/deconcatenate_seed.py -i ${pfam_build_dir}/Pfam-A.seed -o ${tmp_dir}
 
 for f in ${tmp_dir}/*.sto
 do

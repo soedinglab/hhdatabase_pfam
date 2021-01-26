@@ -5,6 +5,8 @@ source ~/.bashrc
 
 source paths.sh
 
+set -ex
+
 mkdir -p ${pfam_build_dir}
 pfam_lock_file=${pfam_build_dir}/lock_pfam.txt
 
@@ -21,16 +23,11 @@ mv -f ${pfam_build_dir}/new_relnotes.txt ${pfam_build_dir}/old_relnotes.txt
 rm -f ${pfam_build_dir}/Pfam-A.seed.gz
 curl -o ${pfam_build_dir}/Pfam-A.seed.gz ftp://ftp.ebi.ac.uk/pub/databases/Pfam/current_release/Pfam-A.seed.gz
 
-bsub < pfam_prepare_input.sh
-
-bsub < pfam_hhblits.sh
-
-bsub < pfam_addss.sh
-bsub < pfam_cstranslate.sh
-bsub < pfam_cstranslate_old.sh
-
-bsub < pfam_hhmake.sh
-
-bsub < pfam_finalize.sh
-
+./pfam_prepare_input.sh
+./pfam_hhblits.sh
+./pfam_addss.sh
+./pfam_cstranslate.sh
+#./pfam_cstranslate_old.sh
+./pfam_hhmake.sh
+./pfam_finalize.sh
 
