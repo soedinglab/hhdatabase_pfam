@@ -1,39 +1,21 @@
 #!/bin/bash
-
-#BSUB -q mpi
-#BSUB -W 47:50
-#BSUB -n 1
-#BSUB -a openmp
-#BSUB -o /usr/users/jsoedin/jobs/pfam_a3m_prep.log
-#BSUB -R "span[hosts=1]"
-#BSUB -R np16
-#BSUB -R haswell
-#BSUB -R cbscratch
-#BSUB -J pfam_a3m_prep
-#BSUB -m hh
-
-source /etc/profile
 source $HOME/.bashrc
-
 source paths.sh
+set -e
 
-rm -f ${pfam_build_dir}/Pfam-A.seed
-gunzip ${pfam_build_dir}/Pfam-A.seed.gz
+mkdir -p "${LOCAL}/${USER}"
+MYLOCAL=$(mktemp -d --tmpdir=${LOCAL}/${USER})
+trap "if [ -d \"${MYLOCAL}\" ] && [ \"${MYLOCAL}\" != \"/\" ]; then rm -rf -- \"${MYLOCAL}\"; fi" EXIT
 
-mkdir -p /local/${USER}
-tmp_dir=$(mktemp -d --tmpdir=/local/${USER})
-python2 ${root_dir}/deconcatenate_seed.py -i ${pfam_build_dir}/Pfam-A.seed -o ${tmp_dir}
+python2 "${root_dir}/deconcatenate_seed.py" -i "${pfam_build_dir}/Pfam-A.seed" -o "${MYLOCAL}"
 
-for f in ${tmp_dir}/*.sto
+mkdir -p "${MYLOCAL}/a3m"
+for f in ${MYLOCAL}/*.sto
 do
-  bn=$(basename $f .sto)
-  reformat.pl sto a3m $f ${tmp_dir}/$bn.a3m -noss
-  ${root_dir}/add_annotation_line.py ${tmp_dir}/$bn.a3m ${tmp_dir}/$bn.sto
+  bn="$(basename "$f" .sto)"
+  reformat.pl sto a3m "$f" "${MYLOCAL}/a3m/$bn.a3m" -noss
+  python2 "${root_dir}/add_annotation_line.py" "${MYLOCAL}/a3m/$bn.a3m" "${MYLOCAL}/$bn.sto"
 done
 
-rm -f ${pfam_build_dir}/pfam_a3m_seed.ff{data,index}
-cd ${tmp_dir}
-ffindex_build -as ${pfam_build_dir}/pfam_a3m_seed.ff{data,index} *.a3m
-
-cd ${pfam_build_dir}
-rm -rf ${tmp_dir}
+rm -f "${pfam_build_dir}/pfam_a3m_seed.ffdata" "${pfam_build_dir}/pfam_a3m_seed.ffindex"
+(cd "${MYLOCAL}/a3m"; ffindex_build -as "${pfam_build_dir}/pfam_a3m_seed.ffdata" "${pfam_build_dir}/pfam_a3m_seed.ffindex" .)

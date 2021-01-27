@@ -16,3 +16,9 @@ export FTP_PROXY="www-cache.gwdg.de:3128"
 export ftp_proxy="www-cache.gwdg.de:3128"
 export ALL_PROXY="www-cache.gwdg.de:3128"
 export all_proxy="www-cache.gwdg.de:3128"
+
+export LOCAL=/nvme/n00
+export NCORES=256
+export LOG_DIR=/usr/users/jsoedin/jobs
+
+ulimit -u 65536
