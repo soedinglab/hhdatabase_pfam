@@ -14,7 +14,7 @@ sed -i "s/.a3m//" pfam_hhm.ffindex
 sed -i "s/.a3m//" pfam_cs219.ffindex
 
 md5sum pfam_hhm.ff* pfam_cs219.ff* pfam_a3m.ff* > pfam.md5sum
-tar -I pigz cvf "${tar_name}" pfam_{a3m,hhm,cs219}.ff{index,data} pfam.md5sum
+tar -I pigz -cvf "${tar_name}" pfam_{a3m,hhm,cs219}.ff{index,data} pfam.md5sum
 chmod a+r "${pfam_build_dir}/${tar_name}"
 
 scp "${pfam_build_dir}/${tar_name}" compbiol@login.gwdg.de:/usr/users/compbiol

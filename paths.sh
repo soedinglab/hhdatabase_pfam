@@ -3,7 +3,8 @@
 export root_dir=/usr/users/jsoedin/git/hhdatabase_pfam
 export pfam_build_dir=/cbscratch/${USER}/hhpred_pfam_build
 #export uniprot=/cbscratch/${USER}/databases/uniclust30_2018_08/uniclust30_2018_08
-export uniprot=/cbscratch/jsoedin/databases/UniRef30_2020_03/UniRef30_2020_03
+#export uniprot=/cbscratch/jsoedin/databases/UniRef30_2020_03/UniRef30_2020_03
+export uniprot=/cbscratch/jsoedin/databases/UniRef30_2021_03/UniRef30_2021_03
 export PATH="$HOME/git/hh-suite/build/src:$PATH"
 
 export NO_PROXY="localhost,127.0.0.1"

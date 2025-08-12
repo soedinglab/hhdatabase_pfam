@@ -52,6 +52,6 @@ done < ${pfam_build_dir}/pfam_a3m_seed.ffindex
 
 wait
 
-rm -rf -- "${pfam_build_dir}/pfam_a3m.ffdata" "${pfam_build_dir}/pfam_a3m.ffindex"
-(cd "${MYLOCAL}/a3m" && ffindex_build -s "${pfam_build_dir}/pfam_a3m.ffdata" "${pfam_build_dir}/pfam_a3m.ffindex" .)
+rm -f -- "${pfam_build_dir}/pfam_a3m_without_ss.ffdata" "${pfam_build_dir}/pfam_a3m_without_ss.ffindex"
+(cd "${MYLOCAL}/a3m" && ffindex_build -s "${pfam_build_dir}/pfam_a3m_without_ss.ffdata" "${pfam_build_dir}/pfam_a3m_without_ss.ffindex" .)
 

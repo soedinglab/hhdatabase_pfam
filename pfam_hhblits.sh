@@ -14,5 +14,5 @@ db_bn=$(basename $db)
 cp ${db}*.ff* ${MYLOCAL}
 DB=${MYLOCAL}/${db_bn}
 
-hhblits_omp -i ${pfam_build_dir}/pfam_a3m_seed -oa3m ${MYLOCAL}/pfam_a3m -o /dev/null -cpu ${NCORES} -d "${DB}" -n 3 -v 0
-cp -f ${MYLOCAL}/pfam_a3m.ff{data,index} ${pfam_build_dir}
+hhblits_omp -i ${pfam_build_dir}/pfam_a3m_seed -oa3m ${MYLOCAL}/pfam_a3m_without_ss -o /dev/null -cpu ${NCORES} -d "${DB}" -n 3 -v 0
+cp -f ${MYLOCAL}/pfam_a3m_without_ss.ff{data,index} ${pfam_build_dir}
